@@ -1,25 +1,38 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Stock from './Stock';
+import StockHook from './StockHook';
+import Form from './Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showMsgPadre: false,
+      maggiorenne: ''
+    }
+  }
+
+  showMaggiorenne = (nome) => {
+    this.setState( { maggiorenne: nome } )
+  }
+
+  mostroDatiForm = form => {
+    console.log('Da componente padre', form);
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Form onSubmit={this.mostroDatiForm} />
+          <p>Maggiorenni sono: {this.state.maggiorenne}</p>    
+          <Stock nome="APPLE" fondatore="Jobs" eta={1} hobby={['arte']} showEta={this.showMaggiorenne} />   
+          <Stock nome="Pera" fondatore="Viola" eta={11} hobby={['Non So']} showEta={this.showMaggiorenne} />      
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
